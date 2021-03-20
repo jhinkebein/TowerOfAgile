@@ -19,9 +19,11 @@ namespace TowerOfAgile.Models
         {
             if (!string.IsNullOrWhiteSpace(Name))
             {
-                Guid g = Guid.NewGuid(); 
+                //Guid g = Guid.NewGuid(); 
 
-                return g.ToString();
+                //return g.ToString();
+                string shareCode = RandomCodeGenerator.GetKeyAlphaNumeric(KeyLength.l16);
+                return shareCode;
             }
             else
             {

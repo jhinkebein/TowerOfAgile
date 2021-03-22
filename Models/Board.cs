@@ -29,9 +29,6 @@ namespace TowerOfAgile.Models
             {
                 return "";
             }
-
         }
     }
-
-    
 }

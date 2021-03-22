@@ -1,0 +1,43 @@
+﻿@model Board
+@{
+    ViewBag.Title = "View Board";
+}
+<form method="post">
+    <div>
+        <label for="Sharecode">Enter Sharecode:</label>
+        <input type="text" name="sc" />
+    </div>
+    <div>
+        <input value="View" type="submit" />
+        <input value="Cancel" type="submit" formmethod="get" />
+    </div>
+</form>
+
+<div>
+
+    @if (!string.IsNullOrEmpty(Model.Name))
+    {
+        <table class="table table-bordered table-striped">
+            <caption>@Model.Name</caption>
+            <thead>
+                <tr>
+                    <th>PlaceHolder</th>
+                    <th>PlaceHolder</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>This table will eventually be populated by a giant foreach</td>
+                    <td>For my other 2 db tables coming soon</td>
+
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <label>@ViewBag.Total.ToString()</label>
+    }
+
+</div>

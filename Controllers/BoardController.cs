@@ -36,5 +36,28 @@ namespace TowerOfAgile.Controllers
             return View(b);
 
         }
+        [HttpGet]
+        public ActionResult GetBoard()
+        {
+            Board b = new Board();
+            ViewBag.Total = "";
+            return View(b);
+        }
+        [HttpPost]
+        public IActionResult GetBoard(string sc)
+        {
+            Board b = new Board();
+            if (context.Boards.Any(s => s.Sharecode == sc))
+            {
+                b.Name = context.Boards.Where(s => s.Sharecode == sc).Select(n => n.Name).SingleOrDefault();
+                b.Sharecode = context.Boards.Where(s => s.Sharecode == sc).Select(s => s.Sharecode).SingleOrDefault();
+            }
+            else
+            {
+                ViewBag.Total = "Your Sharecode does not exist.";
+            }
+            return View(b);
+        }
+        
     }
 }

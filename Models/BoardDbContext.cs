@@ -15,6 +15,13 @@ namespace TowerOfAgile.Models
 			: base(options) { }
 
 		public DbSet<Board> Boards { get; set; }
+		public DbSet<BoardElement> boardElements { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+			modelBuilder.Entity<BoardElement>()
+				.HasOne(b => b.Board)
+				.WithMany(e => e.Elements);
+        }
 	}
 	public class BoardContextFactory : IDesignTimeDbContextFactory<BoardDbContext>
 	{

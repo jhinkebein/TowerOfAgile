@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210308175012_init.cs" />
     <Compile Remove="Migrations\20210308175012_init.Designer.cs" />
+    <Compile Remove="Migrations\20210327194237_addBoardElement.cs" />
+    <Compile Remove="Migrations\20210327194237_addBoardElement.Designer.cs" />
+    <Compile Remove="Migrations\20210329231613_addBoardElement.cs" />
+    <Compile Remove="Migrations\20210329231613_addBoardElement.Designer.cs" />
+    <Compile Remove="Migrations\20210405170349_addBoardItems.cs" />
+    <Compile Remove="Migrations\20210405170349_addBoardItems.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

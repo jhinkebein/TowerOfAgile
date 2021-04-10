@@ -3,40 +3,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TowerOfAgile.Migrations
 {
-    public partial class addBoardElement : Migration
+    public partial class boardItems : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "boardElements",
+                name: "BoardItems",
                 columns: table => new
                 {
-                    BoardElementId = table.Column<int>(nullable: false)
+                    BoardItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Element = table.Column<string>(nullable: true),
-                    BoardId = table.Column<int>(nullable: true)
+                    itemText = table.Column<string>(nullable: true),
+                    itemType = table.Column<string>(nullable: true),
+                    BoardId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_boardElements", x => x.BoardElementId);
+                    table.PrimaryKey("PK_BoardItems", x => x.BoardItemId);
                     table.ForeignKey(
-                        name: "FK_boardElements_Boards_BoardId",
+                        name: "FK_BoardItems_Boards_BoardId",
                         column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "BoardId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_boardElements_BoardId",
-                table: "boardElements",
+                name: "IX_BoardItems_BoardId",
+                table: "BoardItems",
                 column: "BoardId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "boardElements");
+                name: "BoardItems");
         }
     }
 }

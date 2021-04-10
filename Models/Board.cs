@@ -14,7 +14,7 @@ namespace TowerOfAgile.Models
        
         [Required(ErrorMessage ="Please enter a name for your board")]
         public string Name { get; set; }
-        public List<BoardElement> Elements { get; set; }
+        public ICollection<BoardItem> Items { get; set; }
 
         public string createShareCode()
         {

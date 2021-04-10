@@ -49,8 +49,12 @@ namespace TowerOfAgile.Controllers
             Board b = new Board();
             if (context.Boards.Any(s => s.Sharecode == sc))
             {
+
+                int id = context.Boards.Where(s => s.Sharecode == sc).Select(i => i.BoardId).SingleOrDefault();
+                b.BoardId = id;
                 b.Name = context.Boards.Where(s => s.Sharecode == sc).Select(n => n.Name).SingleOrDefault();
                 b.Sharecode = context.Boards.Where(s => s.Sharecode == sc).Select(s => s.Sharecode).SingleOrDefault();
+                b.Items = context.BoardItems.Where(i => i.BoardId == id).ToList();
             }
             else
             {
@@ -58,6 +62,44 @@ namespace TowerOfAgile.Controllers
             }
             return View(b);
         }
-        
+        [HttpPost]
+        public IActionResult AddItem(int bId, string type, string text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                BoardItem item = new BoardItem();
+                item.BoardId = bId;
+                item.itemType = type;
+                item.itemText = text;
+
+                context.Add(item);
+                context.SaveChanges();
+
+                TempData["message"] = "Item Added!";
+
+                string sc = context.Boards.Where(i => i.BoardId == bId).Select(s => s.Sharecode).SingleOrDefault();
+                Board b = new Board();
+                b.BoardId = bId;
+                b.Name = context.Boards.Where(s => s.Sharecode == sc).Select(n => n.Name).SingleOrDefault();
+                b.Sharecode = context.Boards.Where(s => s.Sharecode == sc).Select(s => s.Sharecode).SingleOrDefault();
+                b.Items = context.BoardItems.Where(i => i.BoardId == bId).ToList();
+                return View("GetBoard", b);
+            }
+            else
+            {
+                TempData["message"] = "New item text cannot be blank.";
+                string sc = context.Boards.Where(i => i.BoardId == bId).Select(s => s.Sharecode).SingleOrDefault();
+                Board b = new Board();
+                b.BoardId = bId;
+                b.Name = context.Boards.Where(s => s.Sharecode == sc).Select(n => n.Name).SingleOrDefault();
+                b.Sharecode = context.Boards.Where(s => s.Sharecode == sc).Select(s => s.Sharecode).SingleOrDefault();
+                b.Items = context.BoardItems.Where(i => i.BoardId == bId).ToList();
+
+                return View("GetBoard", b);
+            };
+
+            }
+        }
     }
-}
+    
+

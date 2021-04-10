@@ -1,0 +1,102 @@
+﻿@model Board
+@{
+	ViewBag.Title = "View Board";
+}
+<form method="post">
+	<div>
+		<label for="Sharecode">Enter Sharecode:</label>
+		<input type="text" name="sc" />
+	</div>
+	<div>
+		<input value="View" type="submit" formaction="GetBoard" />
+		<input value="Cancel" type="submit" formmethod="get" formaction="GetBoard" />
+	</div>
+</form>
+
+<div>
+
+	@if (!string.IsNullOrEmpty(Model.Name))
+	{
+		<table class="table table-bordered table-striped">
+			<caption>@Model.Name</caption>
+			<thead>
+				<tr>
+					<th>Backlog</th>
+					<th>In Progress</th>
+					<th>Review</th>
+					<th>Testing</th>
+					<th>Finished</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in @Model.Items)
+				{
+					<tr>
+						<td>
+							@if (item.itemType == "Backlog")
+							{
+								<div>@item.itemText</div>
+							}
+						</td>
+						<td>
+							@if (item.itemType == "In Progress")
+							{
+								<div>@item.itemText</div>
+							}
+						</td>
+						<td>
+							@if (item.itemType == "Review")
+							{
+								<div>@item.itemText</div>
+							}
+						</td>
+						<td>
+							@if (item.itemType == "Testing")
+							{
+								<div>@item.itemText</div>
+							}
+						</td>
+						<td>
+							@if (item.itemType == "Finished")
+							{
+								<div>@item.itemText</div>
+							}
+						</td>
+
+					</tr>
+				}
+
+			</tbody>
+		</table>
+		
+		<form method="post">
+			<div>
+				<h1>Add New Item:</h1>
+				<label for="type">Type:</label>
+				<select id="type" name="type">
+					<option value="Backlog">Backlog</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Review">Review</option>
+					<option value="Testing">Testing</option>
+					<option value="Finished">Finished</option>
+				</select>
+				<label for="text" name="text">Item Text:</label>
+				<input type="text" name="text" />
+				<input type="hidden" name="bId" value="@Model.BoardId" />
+			</div>
+			<div>
+				<input value="Add Item" type="submit" formaction="AddItem" />
+			</div> 
+			@if (TempData.ContainsKey("message"))
+			{
+				@TempData["message"]
+			}
+		</form>
+	}
+	else
+	{
+		<label>@ViewBag.Total.ToString()</label>
+	}
+
+</div>

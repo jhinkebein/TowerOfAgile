@@ -14,22 +14,22 @@ namespace TowerOfAgile.Models
        
         [Required(ErrorMessage ="Please enter a name for your board")]
         public string Name { get; set; }
+        public ICollection<BoardItem> Items { get; set; }
 
         public string createShareCode()
         {
             if (!string.IsNullOrWhiteSpace(Name))
             {
-                Guid g = Guid.NewGuid(); 
+                //Guid g = Guid.NewGuid(); 
 
-                return g.ToString();
+                //return g.ToString();
+                string shareCode = RandomCodeGenerator.GetKeyAlphaNumeric(KeyLength.l16);
+                return shareCode;
             }
             else
             {
                 return "";
             }
-
         }
     }
-
-    
 }

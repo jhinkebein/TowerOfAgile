@@ -88,9 +88,29 @@
 			<div>
 				<input value="Add Item" type="submit" formaction="AddItem" />
 			</div> 
-			@if (TempData.ContainsKey("message"))
+			@if (TempData.ContainsKey("AddMessage"))
 			{
-				@TempData["message"]
+				<b>@TempData["AddMessage"]</b>
+			}
+		</form>
+		<form method="post">
+			<div>
+				<h1>Update Board:</h1>
+				<label for="item">Item:</label>
+				@Html.DropDownList("SelectedItem", new SelectList((System.Collections.IEnumerable)ViewData["ItemsList"]))
+				<select id="type2" name="type2">
+					<option value="Backlog">Backlog</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Review">Review</option>
+					<option value="Testing">Testing</option>
+					<option value="Finished">Finished</option>
+				</select>
+				<input type="hidden" name="id" value="@Model.BoardId" />
+				<input value="Update Item" type="submit" formaction="UpdateItem" />
+			</div>
+			@if (TempData.ContainsKey("CategoryMessage"))
+			{
+				<b>@TempData["CategoryMessage"]</b>
 			}
 		</form>
 	}

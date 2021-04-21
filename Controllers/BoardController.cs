@@ -188,7 +188,43 @@ namespace TowerOfAgile.Controllers
 				return View("GetBoard", b);
 			} 
 			
+		}
+		[HttpPost]
+		public IActionResult DeleteItem(int id, string SelectedItem)
+		{
+			var items = context.BoardItems.Where(i => i.BoardId == id).ToList();
+			var itemId = (from i in items
+						  where i.itemText == SelectedItem
+						  select i.BoardItemId).FirstOrDefault();
+
+			var item = context.BoardItems.SingleOrDefault(i => i.BoardItemId == itemId);
+			context.Remove(item);
+			context.SaveChanges();
+			TempData["DeleteMessage"] = "Item deleted.";
+			string sc = context.Boards.Where(i => i.BoardId == id).Select(s => s.Sharecode).SingleOrDefault();
+			Board b = new Board();
+			b.BoardId = id;
+			b.Name = context.Boards.Where(s => s.Sharecode == sc).Select(n => n.Name).SingleOrDefault();
+			b.Sharecode = context.Boards.Where(s => s.Sharecode == sc).Select(s => s.Sharecode).SingleOrDefault();
+			b.Items = context.BoardItems.Where(i => i.BoardId == id).ToList();
+
+			var boardItems = context.BoardItems.Where(i => i.BoardId == id).Select(t => t.itemText).ToList();
+			ViewData["ItemsList"] = boardItems;
+
+			return View("GetBoard", b);
+		}
+		[HttpPost]
+		public IActionResult DeleteBoard(int id)
+		{
 			
+			var board = context.Boards.Where(i => i.BoardId == id).SingleOrDefault();
+
+			context.RemoveRange(context.BoardItems.Where(i => i.BoardId == id));
+			context.Remove(board);
+			context.SaveChanges();
+
+			TempData["DeleteBoard"] = $"Board '{board.Name}' has been deleted.";
+			return RedirectToAction("Index");
 		}
 	}
 }

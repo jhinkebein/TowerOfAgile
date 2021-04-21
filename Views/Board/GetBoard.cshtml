@@ -113,6 +113,16 @@
 				<b>@TempData["CategoryMessage"]</b>
 			}
 		</form>
+		<form method="post">
+			<div>
+				<h1>Delete Board Items:</h1>
+				<label for="item">Item:</label>
+				@Html.DropDownList("SelectedItem", new SelectList((System.Collections.IEnumerable)ViewData["ItemsList"]))
+				<input type="hidden" name="id" value="@Model.BoardId" />
+				<input value="Delete Item" type="submit" formaction="DeleteItem" />
+				<input value="Delete Board" type="submit" formaction="DeleteBoard" />
+			</div>
+		</form>
 	}
 	else
 	{

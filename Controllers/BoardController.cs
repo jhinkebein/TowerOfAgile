@@ -26,16 +26,15 @@ namespace TowerOfAgile.Controllers
 			if (ModelState.IsValid)
 			{
 				b.Sharecode = b.createShareCode();
-				ViewBag.Total = b.Sharecode;
+				TempData["Sharecode"] = b.Sharecode;
+				context.Boards.Add(b);
+				context.SaveChanges();
+				return RedirectToAction("Index");
 			}
 			else
 			{
-				ViewBag.Total = "";
+				return View(b);
 			}
-			context.Boards.Add(b);
-			context.SaveChanges();
-			return View(b);
-
 		}
 		[HttpGet]
 		public ActionResult GetBoard()

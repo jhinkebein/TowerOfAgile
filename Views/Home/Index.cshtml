@@ -10,3 +10,7 @@
 {
     <b>@TempData["DeleteBoard"]</b>
 }
+@if (TempData.ContainsKey("Sharecode"))
+{
+    <b>Sharecode: @TempData["Sharecode"]</b>
+}

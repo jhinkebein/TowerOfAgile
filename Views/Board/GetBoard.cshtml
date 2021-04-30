@@ -5,10 +5,10 @@
 <form method="post">
 	<div>
 		<label for="Sharecode">Enter Sharecode:</label>
-		<input type="text" name="sc" />
+		<input type="text" name="sc" size="22" />
 	</div>
 	<div>
-		<input value="View" type="submit" formaction="GetBoard" size="20" />
+		<input value="View" type="submit" formaction="GetBoard" />
 		<input value="Cancel" type="submit" formmethod="get" formaction="GetBoard" />
 	</div>
 </form>
@@ -17,7 +17,7 @@
 
 	@if (!string.IsNullOrEmpty(Model.Name))
 	{
-		<table class="table table-bordered table-striped">
+		<table id="board" class="table table-bordered table-striped">
 			<caption>@Model.Name</caption>
 			<thead>
 				<tr>

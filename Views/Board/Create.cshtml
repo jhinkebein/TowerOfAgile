@@ -3,18 +3,11 @@
 }
 
 <form method="post">
-    @Html.ValidationSummary()
     <div>
         <label for="Name">Name:</label>
         <input type="text" name="Name" value="" />
         @Html.ValidationMessage("Name")
     </div>
-
-    <div>
-        <label>Share Code:</label>
-        <label>@ViewBag.Total.ToString()</label>
-    </div>
-
     <div>
         <input value="Create" type="submit" />
         <input value="Cancel" type="submit" formmethod="get" />

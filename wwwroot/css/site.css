@@ -3,6 +3,12 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    --text-color: #222;
+    --bkg-color: #fff;
+}
+body.dark-theme {
+    --text-color: #eee;
+    --bkg-color: #121212;
 }
 
 /* Wrapping element */
@@ -34,4 +40,62 @@ body {
     .carousel-caption {
         display: none;
     }
+}
+
+#board {
+    font-family: Arial, Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+#board td, #board th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    --bkg-color: #121212;
+}
+
+
+#board tr:hover {background-color: #1F1A24;}
+
+#board th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: forestgreen;
+    color: #eee;
+}
+#board tbody tr {
+    background-color: #121212;
+    color: #eee
+}
+@media (prefers-color-scheme: dark) {
+    /* defaults to dark theme */
+    body {
+        --text-color: #eee;
+        --bkg-color: #121212;
+    }
+
+    body.light-theme {
+        --text-color: #222;
+        --bkg-color: #fff;
+    }
+
+   
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--bkg-color);
+}
+
+h1,
+p {
+    color: var(--text-color);
+}
+label {
+    color: #eee;
 }

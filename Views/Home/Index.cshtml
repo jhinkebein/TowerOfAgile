@@ -6,3 +6,11 @@
 <div><a asp-action="Create" asp-controller="Board"><b>Create Board</b></a></div>
 
 <div><a asp-action="GetBoard" asp-controller="Board"><b>View Existing Board</b></a></div>
+@if (TempData.ContainsKey("DeleteBoard"))
+{
+    <b>@TempData["DeleteBoard"]</b>
+}
+@if (TempData.ContainsKey("Sharecode"))
+{
+    <b>Sharecode: @TempData["Sharecode"]</b>
+}

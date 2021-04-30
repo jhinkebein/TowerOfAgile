@@ -5,7 +5,7 @@
 <form method="post">
 	<div>
 		<label for="Sharecode">Enter Sharecode:</label>
-		<input type="text" name="sc" />
+		<input type="text" name="sc" size="22" />
 	</div>
 	<div>
 		<input value="View" type="submit" formaction="GetBoard" />
@@ -17,7 +17,7 @@
 
 	@if (!string.IsNullOrEmpty(Model.Name))
 	{
-		<table class="table table-bordered table-striped">
+		<table id="board" class="table table-bordered table-striped">
 			<caption>@Model.Name</caption>
 			<thead>
 				<tr>
@@ -63,7 +63,6 @@
 								<div>@item.itemText</div>
 							}
 						</td>
-
 					</tr>
 				}
 
@@ -88,10 +87,40 @@
 			<div>
 				<input value="Add Item" type="submit" formaction="AddItem" />
 			</div> 
-			@if (TempData.ContainsKey("message"))
+			@if (TempData.ContainsKey("AddMessage"))
 			{
-				@TempData["message"]
+				<b>@TempData["AddMessage"]</b>
 			}
+		</form>
+		<form method="post">
+			<div>
+				<h1>Update Board:</h1>
+				<label for="item">Item:</label>
+				@Html.DropDownList("SelectedItem", new SelectList((System.Collections.IEnumerable)ViewData["ItemsList"]))
+				<select id="type2" name="type2">
+					<option value="Backlog">Backlog</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Review">Review</option>
+					<option value="Testing">Testing</option>
+					<option value="Finished">Finished</option>
+				</select>
+				<input type="hidden" name="id" value="@Model.BoardId" />
+				<input value="Update Item" type="submit" formaction="UpdateItem" />
+			</div>
+			@if (TempData.ContainsKey("CategoryMessage"))
+			{
+				<b>@TempData["CategoryMessage"]</b>
+			}
+		</form>
+		<form method="post">
+			<div>
+				<h1>Delete Board Items:</h1>
+				<label for="item">Item:</label>
+				@Html.DropDownList("SelectedItem", new SelectList((System.Collections.IEnumerable)ViewData["ItemsList"]))
+				<input type="hidden" name="id" value="@Model.BoardId" />
+				<input value="Delete Item" type="submit" formaction="DeleteItem" />
+				<input value="Delete Board" type="submit" formaction="DeleteBoard" />
+			</div>
 		</form>
 	}
 	else
